@@ -1,5 +1,6 @@
 package com.example.hellochat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -14,5 +15,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable  Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = HomeBinding.inflate(LayoutInflater.from(this));
+
+        sendUserToProfileActivity();
+    }
+    private void sendUserToProfileActivity(){
+        Intent in = new Intent(this,ProfileActivity.class);
+        startActivity(in);
     }
 }
