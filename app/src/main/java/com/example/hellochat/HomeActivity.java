@@ -88,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         String title = item.getTitle().toString();
         if(title.equalsIgnoreCase("Find friends")){
-
+             sendUserFindFriendActivity();
         }
         else if(title.equalsIgnoreCase("Settings")){
 
@@ -106,5 +106,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent in = new Intent(HomeActivity.this,MainActivity.class);
         startActivity(in);
         finish();
+    }
+    private void sendUserFindFriendActivity(){
+        Intent in = new Intent(HomeActivity.this,FindFriendActivity.class);
+        startActivity(in);
     }
 }
