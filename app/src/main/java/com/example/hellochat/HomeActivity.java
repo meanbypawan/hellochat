@@ -94,13 +94,17 @@ public class HomeActivity extends AppCompatActivity {
 
         }
         else if(title.equalsIgnoreCase("Incoming requests")){
-
+          sendUserToRequestActivity();
         }
         else if(title.equalsIgnoreCase("Signout")){
             FirebaseAuth.getInstance().signOut();
             sendUserToLoginActivity();
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void sendUserToRequestActivity(){
+        Intent in = new Intent(HomeActivity.this,RequestActivity.class);
+        startActivity(in);
     }
     private void sendUserToLoginActivity(){
         Intent in = new Intent(HomeActivity.this,MainActivity.class);

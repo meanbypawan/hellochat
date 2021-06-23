@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,11 +24,15 @@ public class FindFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = FindFriednActivityBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.findFriendToolBar);
+        binding.findFriendToolBar.setTitle("Find friend");
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
         userReference = FirebaseDatabase.getInstance().getReference("User");
          option =new FirebaseRecyclerOptions.Builder<User>()
                 .setQuery(userReference,User.class)
                 .build();
-        adapter = new UserAdapter(option);
+        adapter = new UserAdapter(option,FindFriendActivity.this);
         binding.rv.setAdapter(adapter);
         binding.rv.setLayoutManager(new LinearLayoutManager(this));
 

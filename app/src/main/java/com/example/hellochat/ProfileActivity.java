@@ -1,6 +1,7 @@
 package com.example.hellochat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,9 +63,13 @@ public class ProfileActivity extends AppCompatActivity {
                 hm.put("about",aboutUs);
                 hm.put("uid",currentUserId);
                 hm.put("imageUrl",imageUrl);
+                ProgressDialog pd = new ProgressDialog(ProfileActivity.this);
+                pd.setMessage("please wait while creating profile");
+                pd.show();
                 userReference.child(currentUserId).setValue(hm).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                       pd.dismiss();
                        if(task.isSuccessful()){
                            Toast.makeText(ProfileActivity.this, "Profile created", Toast.LENGTH_SHORT).show();
                        }

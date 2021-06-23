@@ -1,6 +1,8 @@
 package com.example.hellochat;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
   private String uid;
   private String about;
   private String imageUrl;

@@ -35,9 +35,15 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             Toast.makeText(this, "Login Success...", Toast.LENGTH_SHORT).show();
+            sendUserToHomeActivity();
         } else {
             Toast.makeText(this, "Login Failed...", Toast.LENGTH_SHORT).show();
         }
 
+    }
+    private void sendUserToHomeActivity(){
+        Intent in = new Intent(MainActivity.this,HomeActivity.class);
+        startActivity(in);
+        finish();
     }
 }
