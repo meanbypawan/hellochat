@@ -9,8 +9,12 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hellochat.databinding.HomeBinding;
+import com.example.hellochat.fragment.ChatFragment;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
               if(snapshot.exists()){
                   User u = snapshot.getValue(User.class);
                   Picasso.get().load(u.getImageUrl()).into(binding.profileImage);
-                  binding.homeToolBar.setTitle(u.getName());
+                  binding.tvCurrentUser.setText(u.getName());
               }
             }
 
@@ -52,6 +56,35 @@ public class HomeActivity extends AppCompatActivity {
         binding.homeTab.addTab(binding.homeTab.newTab().setText("CHAT"));
         binding.homeTab.addTab(binding.homeTab.newTab().setText("Group"));
         binding.homeTab.addTab(binding.homeTab.newTab().setText("Story"));
+
+        binding.homeTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String tabTitle = tab.getText().toString();
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                if(tabTitle.equalsIgnoreCase("CHAT")){
+                   transaction.replace(R.id.ll,new ChatFragment());
+                }
+                else if(tabTitle.equalsIgnoreCase("Group")){
+
+                }
+                else if(tabTitle.equalsIgnoreCase("Story")){
+
+                }
+                transaction.commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
     private void sendUserToProfileActivity(){
         Intent in = new Intent(this,ProfileActivity.class);
@@ -93,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
         else if(title.equalsIgnoreCase("Settings")){
 
         }
-        else if(title.equalsIgnoreCase("Incoming requests")){
+        else if(title.equalsIgnoreCase("Incoming request")){
           sendUserToRequestActivity();
         }
         else if(title.equalsIgnoreCase("Signout")){
